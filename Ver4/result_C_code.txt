@@ -1,0 +1,31 @@
+// Category: Structure
+const char* predict(...) {
+if (strcmp(Heme?, "Yes") == 0) {
+    if (strcmp(Flavin?, "No") == 0) {
+        return "1";
+    } else {
+        return "0";
+    }
+} else {
+    return "1";
+}
+}
+============================================================
+// Category: Theoretical
+const char* predict(...) {
+if (strcmp(Redox?, "Yes") == 0) {
+    return "0";
+} else {
+    return "1";
+}
+}
+============================================================
+// Category: Experimental
+const char* predict(...) {
+if (strcmp(Substrate Selectivity, "Low") == 0) {
+    return "0";
+} else {
+    return "1";
+}
+}
+============================================================

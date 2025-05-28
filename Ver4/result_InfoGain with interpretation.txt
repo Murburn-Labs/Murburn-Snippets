@@ -1,0 +1,61 @@
+Information Gain before split	-	0.964079
+Feature	Category	Information Gain
+Heme?	Structure	0.964079
+Flavin?	Structure	0.062651
+FeS?	Structure	0.041668
+Constr. Access?	Structure	0.389362
+Subst > Site?	Structure	0.038754
+Redox?	Theoretical	0.799234
+Exergonic?	Theoretical	0.000000
+O₂ Need?	Experimental	0.964079
+DRS?	Experimental	0.964079
+Reversible?	Experimental	0.964079
+Substrate Selectivity	Experimental	0.964079
+Product Specificity	Experimental	0.964079
+Modulator Diversity	Experimental	0.801056
+Non-Integral Stoich?	Experimental	0.964079
+Variable Stoich?	Experimental	0.964079
+Unusual Kinetics (KM<Kd; KIE)	Experimental	0.964079
+kcat > Diffusion?	Experimental	0.799234
+Atypical Substrate Dep.?	Experimental	0.964079
+Bulk Phase Dep.?	Experimental	0.964079
+Temp Dep.?	Experimental	0.964079
+
+
+--------------------------------------------------------------------------------
+Interpretation of Information Gain Analysis
+To identify the most informative features for classifying the enzyme data, we computed the Information Gain (IG) for each feature with respect to the class labels. Information Gain measures the reduction in entropy (uncertainty) of the class labels when a particular feature is used to split the data. A higher IG indicates that the feature provides more discriminative power.
+
+The overall entropy of the dataset before any split was 0.9641, reflecting the baseline uncertainty in the classification task.
+
+Several features, particularly in the Experimental category, achieved the maximum possible information gain of 0.9641, which is equal to the initial entropy. These features include:
+
+O₂ Need?
+
+DRS?
+
+Reversible?
+
+Substrate Selectivity
+
+Product Specificity
+
+Non-Integral Stoich?
+
+Variable Stoich?
+
+Unusual Kinetics (KM<Kd; KIE)
+
+Atypical Substrate Dep.?
+
+Bulk Phase Dep.?
+
+Temp Dep.?
+
+This indicates that these features are perfectly informative and fully resolve the class labels when used individually.
+
+In contrast, features such as Flavin? (IG = 0.0627), FeS? (IG = 0.0417), and Subst > Site? (IG = 0.0388) showed much lower information gain, suggesting they contribute less to class discrimination when used alone.
+
+Theoretical features like Redox? also demonstrated high predictive power (IG = 0.7992), whereas Exergonic? had no contribution (IG = 0.0000), implying that this feature is uninformative for the classification task.
+
+These results indicate that the Experimental features are the most informative, followed by select Theoretical and Structural features. This analysis can guide feature selection for downstream machine learning models, reducing dimensionality and improving interpretability.
