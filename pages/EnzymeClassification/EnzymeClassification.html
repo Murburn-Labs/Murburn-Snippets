@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Similarity - Murburn Explorer</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styles/colors.css" />
+    <link rel="stylesheet" href="../../styles/universal.css" />
+    <link rel="stylesheet" href="../../styles/navbar.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  
+    <style>
+      /* Classification specific styles */
+      .classification-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+      
+      .classification-form {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 2rem;
+      }
+      
+      .dark .classification-form {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      .feature-section {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .dark .feature-section {
+        background: #1f2937;
+        color: white;
+      }
+      
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .form-field label {
+        font-weight: 600;
+        color: #374151;
+      }
+      
+      .dark .form-field label {
+        color: #d1d5db;
+      }
+      
+      .form-field select {
+        padding: 0.75rem;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: white;
+        font-size: 1rem;
+      }
+      
+      .dark .form-field select {
+        background: #374151;
+        border-color: #4b5563;
+        color: white;
+      }
+      
+      .classify-btn {
+        background: linear-gradient(135deg, #3b82f6, #6366f1);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-right: 1rem;
+      }
+      
+      .classify-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+      }
+      
+      .reset-btn {
+        background: #6b7280;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .reset-btn:hover {
+        background: #4b5563;
+        transform: translateY(-2px);
+      }
+      
+      .results-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: none;
+        animation: slideInUp 0.5s ease-out;
+      }
+      
+      .dark .results-container {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .result-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .dark .result-card {
+        background: #1f2937;
+        color: white;
+      }
+      
+      .classification-result {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+      }
+      
+      .murzyme {
+        background: linear-gradient(135deg, #10b981, #34d399);
+        color: white;
+      }
+      
+      .classical {
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        color: white;
+      }
+      
+      .unpredictable {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        color: white;
+      }
+      
+      .consistency-check {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .failure-item {
+        background: #fef2f2;
+        border-left: 4px solid #ef4444;
+        padding: 0.75rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+      }
+      
+      .dark .failure-item {
+        background: rgba(239, 68, 68, 0.1);
+        color: #fca5a5;
+      }
+      
+      .success-item {
+        background: #f0fdf4;
+        border-left: 4px solid #22c55e;
+        padding: 0.75rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+      }
+      
+      .dark .success-item {
+        background: rgba(34, 197, 94, 0.1);
+        color: #86efac;
+      }
+    </style>
+  </head>
+  <body class="light">
+    <header>
+      <nav>
+        <div class="header-container">
+          <a href="../../index.html" class="logo">
+            <img src="../../images/favicon.ico" alt="Amrita Main Logo" id="headerLogo">
+          </a>
+          <div class="toggle-container">
+            <input type="checkbox" id="hide_checkbox">
+            <label for="hide_checkbox" class="toggle">
+              <span class="toggle-button">
+                <span class="crater crater-1"></span>
+                <span class="crater crater-2"></span>
+                <span class="crater crater-3"></span>
+                <span class="crater crater-4"></span>
+                <span class="crater crater-5"></span>
+                <span class="crater crater-6"></span>
+                <span class="crater crater-7"></span>
+              </span>
+              <span class="star star-1"></span>
+              <span class="star star-2"></span>
+              <span class="star star-3"></span>
+              <span class="star star-4"></span>
+              <span class="star star-5"></span>
+              <span class="star star-6"></span>
+              <span class="star star-7"></span>
+              <span class="star star-8"></span>
+            </label>
+          </div>
+          <ul class="nav-links">
+            <li><a href="../../index.html#courses">Lectures</a></li>
+            <li><a href="../../index.html#literature">literature</a></li>
+            <li><a href="../../pages/plots/plot.html">Plots</a></li>
+            <li><a href="../../pages/Classification/Classification.html">Classification</a></li>
+            <li><a href="../../pages/ModelSimilarity/Classification.html">Model Similarity</a></li>
+            <li><a href="../EnzymeClassification/EnzymeClassification.html">Enzyme Classification</a></li>
+            <li><a href="../../pages/contact us/contact.html">Contact Us</a></li>
+            <li><a href="../../pages/about us/about.html">About Us</a></li>
+            <li>
+              <button id="searchButton">Search PDB</button>
+              <div class="search-container" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Type PDB ID to search..." maxlength="4">
+                <button id="searchIcon">🔍</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content">
+      <main>
+        <div class="classification-container">
+          <div class="headerText font-sans" style="text-align: center; margin-bottom: 2rem;">
+            <h2 class="section-one-title text-bold" style="color:#000000; font-size: 3rem; margin-bottom: 1rem;">
+              Enzyme Classification <br /><span>using <span class="typed_text" style="color:#6e11c5" >Murburn Concept</span></span>
+            </h2>
+          </div>
+          <h3 style="font-size: 1.2rem; color: #6b7280; text-align: center;">
+            <b>Advanced Classification System</b> - Input enzyme characteristics to determine if it follows Classical or Murzyme mechanisms
+          </h3>
+
+          <!-- Classification Form -->
+          <div class="classification-form">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">
+              <i class="fas fa-microscope" style="color: #3b82f6; margin-right: 0.5rem;"></i>
+              Enzyme Feature Input
+            </h2>
+            
+            <form id="classificationForm">
+              <!-- Structural Features -->
+              <div class="feature-section">
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">
+                  <i class="fas fa-cube" style="color: #10b981; margin-right: 0.5rem;"></i>
+                  Structural Features
+                </h3>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="heme">Heme present?</label>
+                    <select id="heme" name="heme">
+                      <option value="">Select...</option>
+                      <option value="0">Absent</option>
+                      <option value="1">Present</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="flavin">Flavin present?</label>
+                    <select id="flavin" name="flavin">
+                      <option value="">Select...</option>
+                      <option value="0">Absent</option>
+                      <option value="1">Present</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="fes">Iron-Sulfur cluster (FeS) present?</label>
+                    <select id="fes" name="fes">
+                      <option value="">Select...</option>
+                      <option value="0">Absent</option>
+                      <option value="1">Present</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="activeSiteAccess">Contrained access to active site?</label>
+                    <select id="activeSiteAccess" name="activeSiteAccess">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="substrateSize">Is subtrate size larger than deep seated active site?</label>
+                    <select id="substrateSize" name="substrateSize">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Theoretical Features -->
+              <div class="feature-section">
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">
+                  <i class="fas fa-flask" style="color: #8b5cf6; margin-right: 0.5rem;"></i>
+                  Theoretical Features
+                </h3>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="redoxReaction">Is it a redox reaction?</label>
+                    <select id="redoxReaction" name="redoxReaction">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="exergonic">Is it exergonic?</label>
+                    <select id="exergonic" name="exergonic">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Experimental Features -->
+              <div class="feature-section">
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">
+                  <i class="fas fa-chart-line" style="color: #f59e0b; margin-right: 0.5rem;"></i>
+                  Experimental Features
+                </h3>
+                <div class="form-grid">
+                  <div class="form-field">
+                    <label for="oxygenNeed">Is Oxygen needed?</label>
+                    <select id="oxygenNeed" name="oxygenNeed">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="drsInvolvement">Is DRS noted in the milieu?</label>
+                    <select id="drsInvolvement" name="drsInvolvement">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="reversible">Is it freely reversible?</label>
+                    <select id="reversible" name="reversible">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="substrateSelectivity">Is it selective for substrates?</label>
+                    <select id="substrateSelectivity" name="substrateSelectivity">
+                      <option value="">Select...</option>
+                      <option value="0">Low</option>
+                      <option value="1">High</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="productSpecificity">Is only a specific product formed?</label>
+                    <select id="productSpecificity" name="productSpecificity">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="modulatorDiversity">Are there diverse modulators?</label>
+                    <select id="modulatorDiversity" name="modulatorDiversity">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="nonIntStoich">Is there non-integral stoichiometry?</label>
+                    <select id="nonIntStoich" name="nonIntStoich">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="varStoich">Is there variable stoichiometry?</label>
+                    <select id="varStoich" name="varStoich">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="kmKd">Is Km < Kd?</label>
+                    <select id="kmKd" name="kmKd">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="catalyticRate">Is the catalytic rate exceeding diffusion limits?</label>
+                    <select id="catalyticRate" name="catalyticRate">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="atypicalSubstrateDependence">Does it exhibit atypical substrate dependence?</label>
+                    <select id="atypicalSubstrateDependence" name="atypicalSubstrateDependence">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="bulkPhaseDependence">Does it show  bulk phase (ionic/dielectric) dependence?</label>
+                    <select id="bulkPhaseDependence" name="bulkPhaseDependence">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="atypicalTempDependence">Is there atypical temperature dependence?</label>
+                    <select id="atypicalTempDependence" name="atypicalTempDependence">
+                      <option value="">Select...</option>
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="text-align: center; margin-top: 2rem;">
+                <button type="submit" class="classify-btn">
+                  <i class="fas fa-cogs" style="margin-right: 0.5rem;"></i>
+                  Classify Enzyme
+                </button>
+                <button type="button" class="reset-btn" onclick="resetForm()">
+                  <i class="fas fa-redo" style="margin-right: 0.5rem;"></i>
+                  Reset Form
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Results Container -->
+          <div id="resultsContainer" class="results-container">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">
+              <i class="fas fa-chart-bar" style="color: #10b981; margin-right: 0.5rem;"></i>
+              Classification Results
+            </h2>
+            
+            <div id="classificationResult" class="classification-result"></div>
+            
+            <div class="result-card">
+              <h3 style="margin-bottom: 1rem;">
+                <i class="fas fa-balance-scale" style="color: #8b5cf6; margin-right: 0.5rem;"></i>
+                Score Breakdown
+              </h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div style="text-align: center;">
+                  <div style="font-size: 1.5rem; font-weight: bold; color: #3b82f6;" id="classicalScore">0</div>
+                  <div style="color: #6b7280;">Classical Score</div>
+                </div>
+                <div style="text-align: center;">
+                  <div style="font-size: 1.5rem; font-weight: bold; color: #10b981;" id="murzymeScore">0</div>
+                  <div style="color: #6b7280;">Murzyme Score</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="result-card">
+              <h3 style="margin-bottom: 1rem;">
+                <i class="fas fa-check-circle" style="color: #f59e0b; margin-right: 0.5rem;"></i>
+                Consistency Analysis
+              </h3>
+              <div id="consistencyResults"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img id="footerLogo" src="../../images/logo.webp" alt="Murburn Logo" />
+            <p>Murburn Concept<br>Advanced Biochemical Research</p>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../../index.html#courses">Lectures</a></li>
+              <li><a href="../../index.html#literature">Literature</a></li>
+              <li><a href="../plots/plot.html">Plots</a></li>
+              <li><a href="../Classification/Classification.html">Classification</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>Email: murburn.concept@gmail.com</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#" id="gitlogo-link"><img id="gitlogo" src="../../images/github-light.webp" alt="GitHub" style="width: 24px; height: 24px;"></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Murburn Concept. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Classification logic from your Jupyter notebook
+      function classifyMurzyme(inputFeatures) {
+        let classical = 0;
+        let murzyme = 0;
+        
+        // Apply all the classification rules from the Python code
+        if (inputFeatures.Heme !== null) {
+          if (inputFeatures.Heme === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.Flavin !== null) {
+          if (inputFeatures.Flavin === 1) {
+            murzyme += 0.8;
+          }
+        }
+
+        if (inputFeatures.FeS !== null) {
+          if (inputFeatures.FeS === 0) {
+            classical += 0.8;
+          } else {
+            murzyme += 0.5;
+          }
+        }
+
+        if (inputFeatures.ActiveSiteAccess !== null) {
+          if (inputFeatures.ActiveSiteAccess === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.SubstrateSize !== null) {
+          if (inputFeatures.SubstrateSize === 0) {
+            classical += 1;
+          } else {
+            murzyme += 0.8;
+          }
+        }
+
+        if (inputFeatures.RedoxReaction !== null) {
+          if (inputFeatures.RedoxReaction === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.OxygenNeed !== null) {
+          if (inputFeatures.OxygenNeed === 0) {
+            classical += 0.9;
+          } else {
+            murzyme += 0.9;
+          }
+        }
+
+        if (inputFeatures.DRSInvolvement !== null) {
+          if (inputFeatures.DRSInvolvement === 0) {
+            classical += 0.9;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.Reversible !== null) {
+          if (inputFeatures.Reversible === 1) {
+            classical += 1;
+          } else {
+            murzyme += 0.8;
+          }
+        }
+
+        if (inputFeatures.SubstrateSelectivity !== null) {
+          if (inputFeatures.SubstrateSelectivity === 1) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.ProductSpecificity !== null) {
+          if (inputFeatures.ProductSpecificity === 1) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.NonIntStoich !== null) {
+          if (inputFeatures.NonIntStoich === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.ModulatorDiversity !== null) {
+          if (inputFeatures.ModulatorDiversity === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.VarStoich !== null) {
+          if (inputFeatures.VarStoich === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.KmKd !== null) {
+          if (inputFeatures.KmKd === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.CatalyticRate !== null) {
+          if (inputFeatures.CatalyticRate === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.AtypicalSubstrateDependence !== null) {
+          if (inputFeatures.AtypicalSubstrateDependence === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.BulkPhaseDependence !== null) {
+          if (inputFeatures.BulkPhaseDependence === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        if (inputFeatures.AtypicalTempDependence !== null) {
+          if (inputFeatures.AtypicalTempDependence === 0) {
+            classical += 1;
+          } else {
+            murzyme += 1;
+          }
+        }
+
+        // Consistency check logic
+        const access = inputFeatures.ActiveSiteAccess === 0 ? "limited" : "open";
+        const selectivity = inputFeatures.SubstrateSelectivity === 1;
+        const specificity = inputFeatures.ProductSpecificity === 1;
+        const nonIntStoich = inputFeatures.NonIntStoich === 1;
+        const substrateSize = inputFeatures.SubstrateSize === 1 ? "large" : "small";
+        const kmkd = inputFeatures.KmKd === 1;
+        const catalyticRate = inputFeatures.CatalyticRate === 1 ? 1e10 : 1e5;
+
+        let inconsistency_cnt = 0;
+        let check_cnt = 0;
+        const failures = [];
+
+        // Consistency checks
+        check_cnt++;
+        if (access === "limited" && selectivity === false) {
+          inconsistency_cnt++;
+          failures.push("Limited active site access inconsistent with low selectivity");
+        }
+
+        check_cnt++;
+        if (access === "limited" && specificity === false) {
+          inconsistency_cnt++;
+          failures.push("Limited active site access inconsistent with low specificity");
+        }
+
+        check_cnt++;
+        if (selectivity === false && nonIntStoich === true) {
+          inconsistency_cnt++;
+          failures.push("Low selectivity with non-integer stoichiometry suggests murzyme behavior");
+        }
+
+        check_cnt++;
+        if (kmkd === true) {
+          inconsistency_cnt++;
+          failures.push("Km < Kd relationship is atypical for classical enzymes");
+        }
+
+        check_cnt++;
+        if (substrateSize === "large") {
+          inconsistency_cnt++;
+          failures.push("Large substrate size suggests open active site access");
+        }
+
+        check_cnt++;
+        if (catalyticRate > 1e9) {
+          inconsistency_cnt++;
+          failures.push("Ultra-high catalytic rate suggests murzyme behavior");
+        }
+
+        // Final classification
+        let result;
+        if (inconsistency_cnt !== 0) {
+          if (classical > murzyme) {
+            result = "CLASSICAL";
+          } else if (murzyme > classical) {
+            result = "MURZYME";
+          } else {
+            result = "UNPREDICTABLE";
+          }
+        } else {
+          result = murzyme > 0 ? "MURZYME" : "CLASSICAL";
+        }
+
+        return {
+          classification: result,
+          classicalScore: classical.toFixed(1),
+          murzymeScore: murzyme.toFixed(1),
+          consistency: {
+            inconsistency_cnt: inconsistency_cnt,
+            check_cnt: check_cnt,
+            failures: failures
+          }
+        };
+      }
+
+      // Form handling
+      document.getElementById('classificationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const inputFeatures = {};
+        
+        // Collect form data
+        const fields = ['heme', 'flavin', 'fes', 'activeSiteAccess', 'substrateSize', 
+                       'redoxReaction', 'exergonic', 'oxygenNeed', 'drsInvolvement', 
+                       'reversible', 'substrateSelectivity', 'productSpecificity', 
+                       'modulatorDiversity', 'nonIntStoich', 'varStoich', 'kmKd', 
+                       'catalyticRate', 'atypicalSubstrateDependence', 'bulkPhaseDependence', 
+                       'atypicalTempDependence'];
+        
+        const featureMap = {
+          'heme': 'Heme',
+          'flavin': 'Flavin',
+          'fes': 'FeS',
+          'activeSiteAccess': 'ActiveSiteAccess',
+          'substrateSize': 'SubstrateSize',
+          'redoxReaction': 'RedoxReaction',
+          'exergonic': 'Exergonic',
+          'oxygenNeed': 'OxygenNeed',
+          'drsInvolvement': 'DRSInvolvement',
+          'reversible': 'Reversible',
+          'substrateSelectivity': 'SubstrateSelectivity',
+          'productSpecificity': 'ProductSpecificity',
+          'modulatorDiversity': 'ModulatorDiversity',
+          'nonIntStoich': 'NonIntStoich',
+          'varStoich': 'VarStoich',
+          'kmKd': 'KmKd',
+          'catalyticRate': 'CatalyticRate',
+          'atypicalSubstrateDependence': 'AtypicalSubstrateDependence',
+          'bulkPhaseDependence': 'BulkPhaseDependence',
+          'atypicalTempDependence': 'AtypicalTempDependence'
+        };
+        
+        fields.forEach(field => {
+          const value = formData.get(field);
+          const mappedField = featureMap[field];
+          inputFeatures[mappedField] = value === '' ? null : parseInt(value);
+        });
+        
+        // Classify enzyme
+        const results = classifyMurzyme(inputFeatures);
+        displayResults(results);
+      });
+
+      function displayResults(results) {
+        const resultsContainer = document.getElementById('resultsContainer');
+        const classificationResult = document.getElementById('classificationResult');
+        const classicalScore = document.getElementById('classicalScore');
+        const murzymeScore = document.getElementById('murzymeScore');
+        const consistencyResults = document.getElementById('consistencyResults');
+        
+        // Show results container
+        resultsContainer.style.display = 'block';
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+        
+        // Display classification
+        classificationResult.textContent = results.classification;
+        classificationResult.className = 'classification-result ' + results.classification.toLowerCase();
+        
+        // Display scores
+        classicalScore.textContent = results.classicalScore;
+        murzymeScore.textContent = results.murzymeScore;
+        
+        // Display consistency results
+        let consistencyHTML = `
+          <div style="margin-bottom: 1rem;">
+            <strong>Consistency Check: </strong>
+            <span style="color: ${results.consistency.inconsistency_cnt === 0 ? '#10b981' : '#ef4444'};">
+              ${results.consistency.inconsistency_cnt}/${results.consistency.check_cnt} Issues Found
+            </span>
+          </div>
+        `;
+        
+        if (results.consistency.failures.length > 0) {
+          consistencyHTML += '<div class="consistency-check">';
+          results.consistency.failures.forEach(failure => {
+            consistencyHTML += `<div class="failure-item"><i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>${failure}</div>`;
+          });
+          consistencyHTML += '</div>';
+        } else {
+          consistencyHTML += '<div class="success-item"><i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>All consistency checks passed</div>';
+        }
+        
+        consistencyResults.innerHTML = consistencyHTML;
+      }
+
+      function resetForm() {
+        document.getElementById('classificationForm').reset();
+        document.getElementById('resultsContainer').style.display = 'none';
+      }
+
+      // Theme toggle functionality (same as your original)
+      document.getElementById('hide_checkbox').addEventListener('change', function() {
+        document.body.classList.toggle('dark');
+        document.body.classList.toggle('light');
+      });
+    </script>
+
+    <script src="../../js/responsive-nav.js"></script>
+    
+  </body>
+</html>

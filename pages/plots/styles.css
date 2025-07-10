@@ -1,0 +1,92 @@
+/* Plot styles */
+.plot-section {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background-color: var(--bg-color-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.plot-section h2 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: var(--text-color-primary);
+}
+
+.plot-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    min-height: 450px;
+    position: relative;
+}
+
+.feature-selector-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: var(--bg-color-tertiary);
+    border-radius: 4px;
+}
+
+.feature-selector-container label {
+    margin-right: 0.5rem;
+    font-weight: 500;
+}
+
+.feature-selector-container select {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color-primary);
+    font-size: 0.9rem;
+}
+
+/* Loading styles */
+.loading-plot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: var(--text-color-secondary);
+    font-size: 1rem;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 3px solid rgba(255, 64, 129, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Notes and explanations */
+.plot-notes {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-color-tertiary);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .plot-section {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .plot-container {
+        min-height: 350px;
+    }
+}

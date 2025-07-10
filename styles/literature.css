@@ -1,0 +1,94 @@
+/* Literature Section Styling */
+.literature-section {
+  padding: 6rem 4rem;
+  background-color: var(--alt-bg);
+  text-align: center;
+}
+
+.literature-title {
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.literature-title span {
+  color: var(--blog);
+}
+
+.literature-desc {
+  font-size: 1.8rem;
+  margin-bottom: 4rem;
+  color: var(--text-secondary);
+}
+
+.adv-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.literature-card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.literature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.literature-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  color: var(--text-primary);
+}
+
+.literature-card .author {
+  font-size: 1.4rem;
+  color: var(--blog);
+  margin-bottom: 0.8rem;
+}
+
+.literature-card .journal {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.literature-card .read-more {
+  display: inline-block;
+  background-color: var(--blog);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  transition: all 0.3s;
+}
+
+.literature-card .read-more:hover {
+  background-color: var(--blog-secondary);
+}
+
+@media screen and (max-width: 768px) {
+  .literature-section {
+    padding: 4rem 2rem;
+  }
+  
+  .adv-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .literature-title {
+    font-size: 2.8rem;
+  }
+  
+  .literature-desc {
+    font-size: 1.6rem;
+  }
+}

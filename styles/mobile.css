@@ -1,0 +1,344 @@
+/* Mobile-first responsive styles for Murburn Explorer */
+
+/* Base responsive settings */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Responsive navigation */
+.mobile-menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Mobile navigation */
+  .header-container {
+    position: relative;
+    padding: 10px;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Position toggle button directly next to hamburger menu */
+  .toggle-container {
+    position: relative;
+    order: 2;
+    margin-right: 0; /* No margin */
+  }
+  
+  /* Always show hamburger menu button on mobile */
+  .mobile-menu-toggle {
+    display: block !important;
+    background: none;
+    border: none;
+    position: relative;
+    order: 3;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1000;
+    margin-left: 0; /* Reset margin */
+  }
+  
+  .mobile-menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+  
+  /* Navigation links need to start hidden on mobile */
+  .nav-links {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    z-index: 999;
+  }
+  
+  .dark .nav-links {
+    background-color: #1a1a1a;
+  }
+  
+  .nav-links.active {
+    max-height: 70vh; /* Use viewport height to make it more responsive */
+    overflow-y: auto; /* Make menu scrollable */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding-bottom: 20px; /* Add some bottom padding for easier scrolling */
+  }
+  
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .nav-links li:last-child {
+    border-bottom: none;
+    margin-bottom: 20px; /* Extra space at the bottom for the last item */
+  }
+  
+  /* Ensure text is visible in mobile menu */
+  .nav-links li a {
+    color: #333; /* Dark text for light background */
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    padding: 8px 0;
+  }
+  
+  .dark .nav-links li a {
+    color: #fff; /* Light text for dark background */
+  }
+  
+  /* Search functionality in mobile */
+  #searchButton {
+    margin: 10px auto;
+    display: block !important;
+    width: 80%;
+  }
+  
+  .search-container {
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  #searchInput {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  .search-results {
+    width: 100%;
+    left: 0;
+    max-height: 60vh;
+  }
+  
+  /* Style the search option in mobile menu */
+  .nav-links li:last-child {
+    padding: 20px 0;
+    margin-bottom: 50px; /* Add plenty of space for scrolling to this item */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Make the search button look better on mobile */
+  .nav-links li:last-child #searchButton {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: bold;
+    width: 80%;
+    margin: 10px auto;
+    font-size: 16px;
+  }
+  
+  /* Style the search container in the mobile menu */
+  .nav-links li:last-child .search-container {
+    display: flex !important;
+    width: 90%;
+    margin: 10px auto;
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .nav-links li:last-child #searchInput {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+  }
+  
+  .nav-links li:last-child #searchIcon {
+    width: 20%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+/* Content responsiveness */
+@media (max-width: 768px) {
+  /* Main sections */
+  .first-section {
+    flex-direction: column;
+    padding: 2rem 1rem;
+  }
+  
+  .headerText, .headerImage-div {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .headerImage {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Statistics section */
+  .journey-list {
+    flex-direction: column;
+  }
+  
+  .journey-items {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .border-right {
+    display: none;
+  }
+  
+  /* Course cards */
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .card {
+    width: 100%;
+    margin: 15px 0;
+  }
+  
+  /* Team members */
+  .team-members {
+    flex-direction: column;
+  }
+  
+  .team-member {
+    width: 100%;
+    margin: 15px 0;
+  }
+  
+  /* Literature section */
+  .adv-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Footer */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-logo, .footer-links, .footer-contact {
+    width: 100%;
+    margin: 15px 0;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+/* Classification page responsiveness */
+@media (max-width: 768px) {
+  .upload-box {
+    width: 90%;
+    padding: 15px;
+  }
+  
+  .drop-area {
+    padding: 30px 15px;
+  }
+  
+  .file-info {
+    flex-direction: column;
+  }
+  
+  .result-container {
+    width: 90%;
+    padding: 15px;
+  }
+}
+
+/* Data Bank and Plots page responsiveness */
+@media (max-width: 768px) {
+  .plot-container {
+    height: 300px;
+  }
+  
+  .plot-controls {
+    flex-direction: column;
+  }
+  
+  .plot-controls select, .plot-controls button {
+    width: 100%;
+    margin: 5px 0;
+  }
+  
+  .data-table {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .card-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .adv-cards-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .first-section {
+    padding: 3rem;
+  }
+  
+  .journey-items {
+    padding: 15px;
+  }
+}
+
+/* Touch-friendly elements */
+@media (any-pointer: coarse) {
+  button, .btn, a, select, input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input, select, textarea {
+    font-size: 16px;
+    padding: 12px;
+  }
+}

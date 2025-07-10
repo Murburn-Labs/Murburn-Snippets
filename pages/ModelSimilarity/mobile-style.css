@@ -1,0 +1,103 @@
+/* Mobile styles for Model Similarity page */
+
+@media (max-width: 768px) {
+  /* Fix the table layout for the model comparison table */
+  .model-comparison-table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+  
+  .model-comparison-table table {
+    width: 100%;
+    min-width: 600px; /* Ensure the table has a minimum width */
+  }
+  
+  /* Adjust the parameter container to be full width */
+  .models-container {
+    flex-direction: column !important;
+  }
+  
+  .model-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 20px;
+  }
+  
+  /* Ensure proper spacing and alignment */
+  .page-container {
+    padding: 1rem !important;
+  }
+  
+  .page-title {
+    font-size: 2rem !important;
+    margin-top: 70px;
+  }
+  
+  .model-description {
+    font-size: 1.2rem !important;
+  }
+  
+  /* Improve readability for the model parameters */
+  .parameter-row {
+    padding: 8px 0;
+    margin-bottom: 8px;
+  }
+  
+  /* Style the buttons for better touch targets */
+  .action-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .results-container {
+    padding: 15px;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .result-card {
+    margin-bottom: 15px;
+  }
+}
+
+/* Adjust traditional model section for better mobile viewing */
+@media (max-width: 768px) {
+  .traditional-model, .murburn-model {
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .traditional-model h3, .murburn-model h3 {
+    font-size: 1.5rem;
+  }
+  
+  .traditional-model ul, .murburn-model ul {
+    padding-left: 20px;
+  }
+}
+
+/* Ensure text is readable on all backgrounds */
+.parameter-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.parameter-value {
+  color: var(--text-secondary);
+}
+
+/* Make the mobile scroll experience better */
+.models-container {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix any other model similarity page specific issues */
+.model-description p {
+  margin-bottom: 1rem;
+}

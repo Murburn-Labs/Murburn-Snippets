@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Murburn Explorer</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styles/colors.css" />
+    <link rel="stylesheet" href="../../styles/universal.css" />
+    <link rel="stylesheet" href="../../styles/navbar.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="../../styles/literature.css" />
+    <link rel="stylesheet" href="../../css/responsive.css" />
+    <link rel="stylesheet" href="../../styles/mobile.css" />
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+      .about-container {
+        padding: 6rem 4rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      
+      .about-title {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--primary-color);
+        text-align: center;
+      }
+      
+      .about-title span {
+        color: var(--accent);
+      }
+      
+      .line-long {
+        width: 100%;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 4rem;
+      }
+      
+      .instructor-profile {
+        margin-bottom: 5rem;
+        background-color: var(--primary-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+      }
+      
+      .instructor-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+      
+      .image-div img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--accent);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .name-div {
+        margin-top: 2rem;
+        text-align: center;
+      }
+      
+      .name {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin: 0;
+      }
+      
+      .description-div {
+        background-color: var(--secondary-bg);
+        padding: 2rem;
+        border-radius: 8px;
+      }
+      
+      .description {
+        font-size: 1.6rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+      
+      .description span {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      
+      .description ul {
+        margin-left: 2rem;
+      }
+      
+      .description li {
+        margin-bottom: 0.5rem;
+      }
+      
+      @media screen and (max-width: 768px) {
+        .about-container {
+          padding: 4rem 2rem;
+        }
+        
+        .image-div img {
+          width: 150px;
+          height: 150px;
+        }
+        
+        .name {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="light">
+    <header>
+      <nav>
+        <div class="header-container">
+          <a href="../../index.html" class="logo">
+            <img src="../../images/favicon.ico" alt="Amrita Main Logo" id="headerLogo">
+          </a>
+          <script>
+            // Quick fix for logo in dark mode
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+              document.getElementById('headerLogo').src = '../../images/logo_dark.webp';
+            }
+          </script>
+          <div class="toggle-container">
+            <input type="checkbox" id="hide_checkbox">
+            <label for="hide_checkbox" class="toggle">
+              <span class="toggle-button">
+                <span class="crater crater-1"></span>
+                <span class="crater crater-2"></span>
+                <span class="crater crater-3"></span>
+                <span class="crater crater-4"></span>
+                <span class="crater crater-5"></span>
+                <span class="crater crater-6"></span>
+                <span class="crater crater-7"></span>
+              </span>
+              <span class="star star-1"></span>
+              <span class="star star-2"></span>
+              <span class="star star-3"></span>
+              <span class="star star-4"></span>
+              <span class="star star-5"></span>
+              <span class="star star-6"></span>
+              <span class="star star-7"></span>
+              <span class="star star-8"></span>
+            </label>
+          </div>
+          <ul class="nav-links">
+            <li><a href="../../index.html#courses">Lectures</a></li>
+            <li><a href="../../index.html#literature">Literature</a></li>
+            <li><a href="../../pages/plots/plot.html">Plots</a></li>
+            <li><a href="../../pages/Classification/Classification.html">Classification</a></li>
+            <li><a href="../../pages/ModelSimilarity/Classification.html">Model Similarity</a></li>
+            <li><a href="../../pages/contact us/contact.html">Contact Us</a></li>
+            <li><a href="../../pages/about us/about.html">About Us</a></li>
+            <li>
+              <button id="searchButton">Search PDB</button>
+              <div class="search-container" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Type PDB ID to search..." maxlength="4">
+                <button id="searchIcon">🔍</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content">
+      <main>
+        <div class="about-container">
+          <h1 class="about-title">Meet our <span>Instructors</span></h1>
+          <div class="line-long"></div>
+          
+          <div class="instructor-profile">
+            <div class="instructor-content">
+              <div class="image-div">
+                <img src="../../images/KMM sir (1).jpeg" alt="Dr. K Murali Manoj" />
+              </div>
+              <div class="name-div">
+                <p class="name">Dr. K Murali Manoj</p>
+              </div>
+            </div>
+            <div class="description-div">
+              <p class="description">
+                Meet <span>Dr. Kelath Murali Manoj</span>, a Professor at the School of Artificial Intelligence, Amrita Vishwa Vidyapeetham, Coimbatore.
+                Dr. Manoj is a leading researcher in cellular bioenergetics, with a specific focus on the Murburn concept. He leverages his expertise in artificial intelligence to explore and understand the mechanisms underlying life-sustaining and disruptive cellular processes, particularly within the framework of the Murburn concept.
+              </p>
+              <p class="description"><b>Research Interests:</b></p>
+              <ul class="description">
+                <li>Murburn concept and its applications</li>
+                <li>Cellular bioenergetics</li>
+                <li>Artificial intelligence in biological research</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="instructor-profile">
+            <div class="instructor-content">
+              <div class="image-div">
+                <img src="../../images/Dr. Vinith R.jpg" alt="Dr. Vinith R" />
+              </div>
+              <div class="name-div">
+                <p class="name">Dr. Vinith R</p>
+              </div>
+            </div>
+            <div class="description-div">
+              <p class="description">
+                Meet <span>Dr. Vinith R</span>, an Assistant Professor (Sr Gr) at the School of Artificial Intelligence, Amrita Vishwa Vidyapeetham, Coimbatore.
+                Dr. Vinith is a researcher with expertise in applied machine learning, particularly focusing on graph data analytics. He leverages his knowledge to explore techniques for processing data in the form of graphs and applying deep learning models to this data. His research interests lie in exploring the applications of these techniques across various domains.
+              </p>
+              <p class="description"><b>Research Interests:</b></p>
+              <ul class="description">
+                <li>Applied machine learning</li>
+                <li>Graph data analytics</li>
+                <li>Processing graph data</li>
+                <li>Deep learning models on graph data</li>
+                <li>Applications of graph-based deep learning across various domains</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img id="footerLogo" src="../../images/logo.webp" alt="Murburn Logo" />
+            <p>Murburn Concept<br>Advanced Biochemical Research</p>
+            <script>
+              // Quick fix for footer logo in dark mode
+              const footerSavedTheme = localStorage.getItem('theme');
+              if (footerSavedTheme === 'dark') {
+                document.getElementById('footerLogo').src = '../../images/logo_dark.webp';
+              }
+            </script>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../../index.html#courses">Lectures</a></li>
+              <li><a href="../../index.html#literature">Literature</a></li>
+              <li><a href="../plots/plot.html">Plots</a></li>
+              <li><a href="../Classification/Classification.html">Classification</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>Email: murburn.concept@gmail.com</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#" id="gitlogo-link"><img id="gitlogo" src="../../images/github-light.webp" alt="GitHub" style="width: 24px; height: 24px;"></a>
+              <script>
+                // Quick fix for GitHub logo in dark mode
+                const gitLogoSavedTheme = localStorage.getItem('theme');
+                if (gitLogoSavedTheme === 'dark') {
+                  document.getElementById('gitlogo').src = '../../images/github-dark.webp';
+                }
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Murburn Concept. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle functionality
+        const checkbox = document.querySelector("#hide_checkbox");
+        if (checkbox) {
+          const body = document.body;
+          const footerLogo = document.getElementById('footerLogo');
+          const gitLogo = document.getElementById('gitlogo');
+          const headerLogo = document.getElementById('headerLogo');
+          
+          // Check for saved theme preference
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'dark') {
+            body.classList.add("dark");
+            body.classList.remove("light");
+            checkbox.checked = true;
+            
+            // Update logos for dark theme
+            if (footerLogo) footerLogo.src = "../../images/logo_dark.webp";
+            if (gitLogo) gitLogo.src = "../../images/github-dark.webp";
+            if (headerLogo) headerLogo.src = "../../images/logo_dark.webp";
+          }
+
+          // Theme toggle event listener
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+              body.classList.add("dark");
+              body.classList.remove("light");
+              localStorage.setItem('theme', 'dark');
+              
+              // Update logos for dark theme
+              if (footerLogo) footerLogo.src = "../../images/logo_dark.webp";
+              if (gitLogo) gitLogo.src = "../../images/github-dark.webp";
+              if (headerLogo) headerLogo.src = "../../images/logo_dark.webp";
+            } else {
+              body.classList.remove("dark");
+              body.classList.add("light");
+              localStorage.setItem('theme', 'light');
+              
+              // Update logos for light theme
+              if (footerLogo) footerLogo.src = "../../images/logo.webp";
+              if (gitLogo) gitLogo.src = "../../images/github-light.webp";
+              if (headerLogo) headerLogo.src = "../../images/favicon.ico";
+            }
+          });
+        }
+
+        // Search functionality
+        const searchButton = document.getElementById('searchButton');
+        const searchContainer = document.getElementById('searchContainer');
+        const searchInput = document.getElementById('searchInput');
+        const searchIcon = document.getElementById('searchIcon');
+      
+        if (searchButton && searchContainer && searchInput) {
+          searchButton.addEventListener('click', function() {
+            searchButton.style.display = 'none';
+            searchContainer.style.display = 'flex';
+            searchInput.classList.add('expanded');
+            searchInput.focus();
+            searchInput.value = ''; // Clear input when opening
+          });
+      
+          document.addEventListener('click', function(e) {
+            // Close search if clicked outside
+            if (!searchContainer.contains(e.target) && e.target !== searchButton) {
+              searchButton.style.display = 'block';
+              searchContainer.style.display = 'none';
+              searchInput.classList.remove('expanded');
+              searchInput.value = ''; // Clear input when closed
+            }
+          });
+      
+          if (searchIcon) {
+            searchIcon.addEventListener('click', function() {
+              performPageSearch();
+            });
+          }
+      
+          searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+              performPageSearch();
+            }
+          });
+      
+          function performPageSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+              // Redirect to the Murzymes Data Bank page with the query
+              window.location.href = '../Murzymes Data Bank/Murzymes Data Bank.html?query=' + encodeURIComponent(query);
+              
+              // Clear input and hide search
+              searchInput.value = '';
+              searchContainer.style.display = 'none';
+              searchButton.style.display = 'block';
+            } else {
+              alert('Please enter a PDB ID to search');
+            }
+          }
+        }
+      });
+    </script>
+    <script src="../../js/responsive-nav.js"></script>
+  </body>
+</html>

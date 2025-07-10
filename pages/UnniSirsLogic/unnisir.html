@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enzyme Classifier (0/1 Output) - Murburn Explorer</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styles/colors.css" />
+    <link rel="stylesheet" href="../../styles/universal.css" />
+    <link rel="stylesheet" href="../../styles/navbar.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../css/responsive.css" />
+    <link rel="stylesheet" href="../../styles/mobile.css" />
+    <link rel="stylesheet" href="mobile-style.css" />
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa; /* Lighter background */
+            color: #212529; /* Darker text */
+        }
+        .container {
+            background-color: #ffffff; /* White container */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Softer shadow */
+            max-width: 800px;
+            margin: 20px auto; /* Added margin top/bottom */
+        }
+        h1 {
+            text-align: center;
+            color: #007bff; /* Primary blue */
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #17a2b8; /* Info blue */
+            border-bottom: 2px solid #17a2b8;
+            padding-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 20px; /* Added space after heading */
+        }
+        h2:first-of-type {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 18px; /* Slightly more space */
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600; /* Slightly bolder */
+            color: #495057; /* Grey text for labels */
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px; /* More rounded */
+            border: 1px solid #ced4da; /* Standard bootstrap border color */
+            box-sizing: border-box;
+            background-color: white;
+            font-size: 1rem;
+        }
+        select:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        button {
+            background-color: #28a745; /* Success green */
+            color: white;
+            padding: 12px 25px; /* More padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 17px; /* Larger font */
+            margin-top: 25px;
+            display: block;
+            width: auto; /* Auto width, centered by margin */
+            min-width: 220px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.2s ease-in-out;
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        #results {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e9ecef; /* Lighter grey for results */
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        #results h3 {
+            margin-top: 0;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        #results p {
+            margin: 10px 0;
+            font-size: 1.15em; /* Larger result text */
+            color: #343a40;
+        }
+        #results p span {
+            font-weight: bold;
+            color: #dc3545; /* Danger red for 0/1 output */
+        }
+    </style>
+</head>
+<body>
+    <header >
+        <nav style="background-color: #FF4081; color: #ffffff;">
+            <div class="header-container">
+                <a href="../../index.html" class="logo">
+                    <img src="../../images/favicon.ico" alt="Amrita Main Logo" id="headerLogo">
+                </a>
+                <!-- <div class="toggle-container">
+                    <input type="checkbox" id="hide_checkbox">
+                    <label for="hide_checkbox" class="toggle">
+                        <span class="toggle-button">
+                            <span class="crater crater-1"></span>
+                            <span class="crater crater-2"></span>
+                            <span class="crater crater-3"></span>
+                            <span class="crater crater-4"></span>
+                            <span class="crater crater-5"></span>
+                            <span class="crater crater-6"></span>
+                            <span class="crater crater-7"></span>
+                        </span>
+                        <span class="star star-1"></span>
+                        <span class="star star-2"></span>
+                        <span class="star star-3"></span>
+                        <span class="star star-4"></span>
+                        <span class="star star-5"></span>
+                        <span class="star star-6"></span>
+                        <span class="star star-7"></span>
+                        <span class="star star-8"></span>
+                    </label>
+                </div> -->
+                <ul class="nav-links">
+                    <li><a href="../../index.html#courses">Lectures</a></li>
+                    <li><a href="../../index.html#literature">Literature</a></li>
+                    <li><a href="../../pages/plots/plot.html">Plots</a></li>
+                    <li><a href="../../pages/Classification/Classification.html">Classification</a></li>
+                    <li><a href="../../pages/ModelSimilarity/ModelSimilarity.html">Model Similarity</a></li>
+                    <li><a href="../../pages/contact us/contact.html">Contact Us</a></li>
+                    <li><a href="../../pages/about us/about.html">About Us</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Enzyme Classification (Output: 0 or 1)</h1>
+
+        <h2>Structural Features</h2>
+        <div class="form-group">
+            <label for="f1_heme">1. Heme?</label>
+            <select id="f1_heme">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f2_flavin">2. Flavin?</label>
+            <select id="f2_flavin">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f3_fes">3. FeS?</label>
+            <select id="f3_fes">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Sometimes">Sometimes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f4_constr_access">4. Constrained Access?</label>
+            <select id="f4_constr_access">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Partial">Partial</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f5_substr_gt_site">5. Substrate &gt; Site?</label>
+            <select id="f5_substr_gt_site">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Partial">Partial</option>
+            </select>
+        </div>
+
+        <h2>Theoretical Features</h2>
+        <div class="form-group">
+            <label for="f6_redox">6. Redox?</label>
+            <select id="f6_redox">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f7_exergonic">7. Exergonic?</label>
+            <select id="f7_exergonic">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Mixed">Mixed (Yes/No)</option>
+            </select>
+        </div>
+
+        <h2>Experimental Features</h2>
+        <div class="form-group">
+            <label for="f8_o2_need">8. O<sub>2</sub> Need?</label>
+            <select id="f8_o2_need">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Mixed">Mixed (Yes/No)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f9_drs">9. DRS Involvement?</label>
+            <select id="f9_drs">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f10_reversible">10. Reversible?</label>
+            <select id="f10_reversible">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Partial">Partial</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f11_substrate_selectivity">11. Substrate Selectivity:</label>
+            <select id="f11_substrate_selectivity">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f12_product_specificity">12. Product Specificity:</label>
+            <select id="f12_product_specificity">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f13_diversity_modulator">13. Diversity Modulator:</label>
+            <select id="f13_diversity_modulator">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f14_non_integral_stoich">14. Non-Integral Stoichiometry?</label>
+            <select id="f14_non_integral_stoich">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f15_variable_stoich">15. Variable Stoichiometry?</label>
+            <select id="f15_variable_stoich">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f16_unusual_km_kd">16. Unusual K<sub>M</sub>&lt;K<sub>D</sub> (KIE)?</label>
+            <select id="f16_unusual_km_kd">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f17_catalytic_rate_gt_diffusion">17. Catalytic Rate &gt; Diffusion?</label>
+            <select id="f17_catalytic_rate_gt_diffusion">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f18_atypical_substrate_dep">18. Atypical Substrate Dependence?</label>
+            <select id="f18_atypical_substrate_dep">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Low">Low</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="f19_bulk_phase_dep">19. Bulk Phase Dependency?</label>
+            <select id="f19_bulk_phase_dep">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+                <option value="Typical">Typical</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+
+        <button onclick="handlePrediction()">Predict Label (0 or 1)</button>
+
+        <div id="results" style="display:none;">
+            <h3>Predicted Labels:</h3>
+            <p>Structural Features Prediction: <span id="structural_prediction_result"></span></p>
+            <p>Theoretical Features Prediction: <span id="theoretical_prediction_result"></span></p>
+            <p>Experimental Features Prediction: <span id="experimental_prediction_result"></span></p>
+        </div>
+    </div>
+
+    <footer style="background-color: #FF4081; color: #ffffff; padding: 20px; text-align: center;">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img id="footerLogo" src="../../images/logo.webp" alt="Murburn Logo" />
+                <p>Murburn Concept<br>Advanced Biochemical Research</p>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../../index.html#courses">Lectures</a></li>
+                    <li><a href="../../index.html#literature">Literature</a></li>
+                    <li><a href="../plots/plot.html">Plots</a></li>
+                    <li><a href="../Classification/Classification.html">Classification</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: murburn.concept@gmail.com</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#" id="gitlogo-link"><img id="gitlogo" src="../../images/github-light.webp" alt="GitHub" style="width: 24px; height: 24px;"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Murburn Concept. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- IMPORTANT ---
+        // The decision logic in the functions below is ILLUSTRATIVE and returns "0" or "1".
+        // You MUST replace these with the actual if-else structures derived from your Python script's
+        // C-code output for each category to accurately predict the 0/1 label.
+
+        function predictStructural(heme, flavin, fes, constr_access, substr_gt_site) {
+            // Illustrative logic returning "0" or "1"
+            if (heme === "Yes") {
+                if (flavin === "No" && fes === "No") {
+                    if (constr_access === "Yes" && substr_gt_site === "No") {
+                        return "1"; // Example condition for label 1
+                    } else {
+                        return "0"; // Example condition for label 0
+                    }
+                } else if (fes === "Yes") {
+                    return "1";
+                } else {
+                    return "0";
+                }
+            } else { // Heme is No
+                if (constr_access === "Partial" || substr_gt_site === "Partial") {
+                    return "1";
+                } else if (flavin === "Yes" && fes === "Sometimes") {
+                    return "1";
+                }
+                return "0";
+            }
+        }
+
+        function predictTheoretical(redox, exergonic) {
+            // Illustrative logic returning "0" or "1"
+            if (redox === "Yes") {
+                if (exergonic === "Yes") {
+                    return "1";
+                } else if (exergonic === "Mixed") {
+                    return "0"; // Could be 1 or 0 based on real model
+                } else { // Exergonic No
+                    return "0";
+                }
+            } else { // Redox No
+                if (exergonic === "No") {
+                    return "0";
+                } else { // Exergonic Yes or Mixed
+                    return "1"; // Could be 0 for Mixed based on real model
+                }
+            }
+        }
+
+        function predictExperimental(f8, f9, f10, f11, f12, f13, f14, f15, f16, f17, f18, f19) {
+            // Illustrative logic returning "0" or "1"
+            // This is highly simplified. Real logic will be much more complex.
+            if (f11 === "High" && f12 === "High") {
+                if (f10 === "Yes" || f10 === "Partial") {
+                    if (f17 === "Yes") {
+                        return "1";
+                    } else if (f8 === "No" && f9 === "No") {
+                        return "1";
+                    } else {
+                        return "0";
+                    }
+                } else { // Not reversible
+                    return "0";
+                }
+            } else if (f11 === "Low" || f12 === "Low") {
+                if (f18 === "High" || f19 === "High") {
+                    return "1";
+                }
+                return "0";
+            } else if (f14 === "Yes" || f15 === "Yes") {
+                return "1";
+            }
+            // Default fallback
+            return "0";
+        }
+
+        function handlePrediction() {
+            // Structural Inputs
+            const v_f1_heme = document.getElementById('f1_heme').value;
+            const v_f2_flavin = document.getElementById('f2_flavin').value;
+            const v_f3_fes = document.getElementById('f3_fes').value;
+            const v_f4_constr_access = document.getElementById('f4_constr_access').value;
+            const v_f5_substr_gt_site = document.getElementById('f5_substr_gt_site').value;
+
+            // Theoretical Inputs
+            const v_f6_redox = document.getElementById('f6_redox').value;
+            const v_f7_exergonic = document.getElementById('f7_exergonic').value;
+
+            // Experimental Inputs
+            const v_f8_o2_need = document.getElementById('f8_o2_need').value;
+            const v_f9_drs = document.getElementById('f9_drs').value;
+            const v_f10_reversible = document.getElementById('f10_reversible').value;
+            const v_f11_substrate_selectivity = document.getElementById('f11_substrate_selectivity').value;
+            const v_f12_product_specificity = document.getElementById('f12_product_specificity').value;
+            const v_f13_diversity_modulator = document.getElementById('f13_diversity_modulator').value;
+            const v_f14_non_integral_stoich = document.getElementById('f14_non_integral_stoich').value;
+            const v_f15_variable_stoich = document.getElementById('f15_variable_stoich').value;
+            const v_f16_unusual_km_kd = document.getElementById('f16_unusual_km_kd').value;
+            const v_f17_catalytic_rate_gt_diffusion = document.getElementById('f17_catalytic_rate_gt_diffusion').value;
+            const v_f18_atypical_substrate_dep = document.getElementById('f18_atypical_substrate_dep').value;
+            const v_f19_bulk_phase_dep = document.getElementById('f19_bulk_phase_dep').value;
+
+            // Process predictions
+            const structuralResult = predictStructural(v_f1_heme, v_f2_flavin, v_f3_fes, v_f4_constr_access, v_f5_substr_gt_site);
+            const theoreticalResult = predictTheoretical(v_f6_redox, v_f7_exergonic);
+            const experimentalResult = predictExperimental(
+                v_f8_o2_need, v_f9_drs, v_f10_reversible, v_f11_substrate_selectivity, v_f12_product_specificity,
+                v_f13_diversity_modulator, v_f14_non_integral_stoich, v_f15_variable_stoich, v_f16_unusual_km_kd,
+                v_f17_catalytic_rate_gt_diffusion, v_f18_atypical_substrate_dep, v_f19_bulk_phase_dep
+            );
+
+            // Display results
+            document.getElementById('structural_prediction_result').textContent = structuralResult;
+            document.getElementById('theoretical_prediction_result').textContent = theoreticalResult;
+            document.getElementById('experimental_prediction_result').textContent = experimentalResult;
+
+            document.getElementById('results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

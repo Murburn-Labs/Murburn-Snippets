@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Murzymes Data Bank - Murburn Explorer</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styles/colors.css" />
+    <link rel="stylesheet" href="../../styles/universal.css" />
+    <link rel="stylesheet" href="../../styles/navbar.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../css/responsive.css" />
+    <link rel="stylesheet" href="../../styles/mobile.css" />
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  </head>
+  <body class="light">
+    <header>
+      <nav>
+        <div class="header-container">
+          <a href="../../index.html" class="logo">
+            <img src="../../images/favicon.ico" alt="Amrita Main Logo" id="headerLogo">
+          </a>
+          <div class="toggle-container">
+            <input type="checkbox" id="hide_checkbox">
+            <label for="hide_checkbox" class="toggle">
+              <span class="toggle-button">
+                <span class="crater crater-1"></span>
+                <span class="crater crater-2"></span>
+                <span class="crater crater-3"></span>
+                <span class="crater crater-4"></span>
+                <span class="crater crater-5"></span>
+                <span class="crater crater-6"></span>
+                <span class="crater crater-7"></span>
+              </span>
+              <span class="star star-1"></span>
+              <span class="star star-2"></span>
+              <span class="star star-3"></span>
+              <span class="star star-4"></span>
+              <span class="star star-5"></span>
+              <span class="star star-6"></span>
+              <span class="star star-7"></span>
+              <span class="star star-8"></span>
+            </label>
+          </div>
+          <ul class="nav-links">
+            <li><a href="../../index.html#courses">Lectures</a></li>
+            <li><a href="../../index.html#literature">literature</a></li>
+            <li><a href="../plots/plot.html">Plots</a></li>
+            <li><a href="../Classification/Classification.html">Classification</a></li>
+            <li><a href="../ModelSimilarity/ModelSimilarity.html">Model Similarity</a></li>
+            <li><a href="../contact us/contact.html">Contact Us</a></li>
+            <li><a href="../about us/about.html">About Us</a></li>
+            <li>
+              <button id="searchButton">Search PDB</button>
+              <div class="search-container" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Type PDB ID to search..." maxlength="4">
+                <button id="searchIcon">🔍</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="db-hero-section">
+        <h1>Murzymes Data Bank</h1>
+        <p>Access and explore a comprehensive database of Murzyme proteins and structures</p>
+      </div>
+      
+      <div class="search-section-main">
+        <h2>Search for PDB Structures</h2>
+        <p>Enter a PDB ID to view detailed information about Murzyme structures</p>
+        
+        <div class="search-box">
+          <input type="text" id="pdbSearchInput" placeholder="Enter PDB ID (e.g., 1CPO)">
+          <button id="pdbSearchButton">Search</button>
+        </div>
+        
+        <div id="searchResults" class="search-results">
+          <!-- Search results will appear here -->
+        </div>
+      </div>
+      
+      <div class="featured-section">
+        <h2>Featured Structures</h2>
+        <div id="adv-cards-container" class="featured-cards">
+          <!-- Featured PDBs will be dynamically inserted here -->
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img id="footerLogo" src="../../images/logo.webp" alt="Murburn Logo" />
+          <p>Murburn Concept<br>Advanced Biochemical Research</p>
+        </div>
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../../index.html#courses">Lectures</a></li>
+            <li><a href="../../index.html#literature">Literature</a></li>
+            <li><a href="../plots/plot.html">Plots</a></li>
+            <li><a href="../Classification/Classification.html">Classification</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <p>Email: murburn.concept@gmail.com</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#" id="gitlogo-link"><img id="gitlogo" src="../../images/github-light.webp" alt="GitHub" style="width: 24px; height: 24px;"></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Murburn Concept. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle functionality
+        const checkbox = document.querySelector("#hide_checkbox");
+        if (checkbox) {
+          const body = document.body;
+          const footerLogo = document.getElementById('footerLogo');
+          const gitLogo = document.getElementById('gitlogo');
+          const headerLogo = document.getElementById('headerLogo');
+          
+          // Check for saved theme preference
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'dark') {
+            body.classList.add("dark");
+            body.classList.remove("light");
+            checkbox.checked = true;
+            
+            // Update logos for dark theme
+            if (footerLogo) footerLogo.src = '../../images/logo_dark.webp';
+            if (gitLogo) gitLogo.src = '../../images/github-dark.webp';
+            if (headerLogo) headerLogo.src = '../../images/logo_dark.webp';
+          }
+          
+          // Theme toggle event listener
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+              body.classList.add("dark");
+              body.classList.remove("light");
+              localStorage.setItem('theme', 'dark');
+              
+              // Update logos for dark theme
+              if (footerLogo) footerLogo.src = '../../images/logo_dark.webp';
+              if (gitLogo) gitLogo.src = '../../images/github-dark.webp';
+              if (headerLogo) headerLogo.src = '../../images/logo_dark.webp';
+            } else {
+              body.classList.remove("dark");
+              body.classList.add("light");
+              localStorage.setItem('theme', 'light');
+              
+              // Update logos for light theme
+              if (footerLogo) footerLogo.src = '../../images/logo.webp';
+              if (gitLogo) gitLogo.src = '../../images/github-light.webp';
+              if (headerLogo) headerLogo.src = '../../images/favicon.ico';
+            }
+          });
+        }
+      });
+      
+      // Add search functionality 
+      const searchButton = document.getElementById('searchButton');
+      const searchContainer = document.getElementById('searchContainer');
+      const searchInput = document.getElementById('searchInput');
+      const searchIcon = document.getElementById('searchIcon');
+  
+      if (searchButton && searchContainer && searchInput) {
+        searchButton.addEventListener('click', function() {
+          searchButton.style.display = 'none';
+          searchContainer.style.display = 'flex';
+          searchInput.classList.add('expanded');
+          searchInput.focus();
+          searchInput.value = ''; // Clear input when opening
+        });
+    
+        document.addEventListener('click', function(e) {
+          // Close search if clicked outside
+          if (!searchContainer.contains(e.target) && e.target !== searchButton) {
+            searchButton.style.display = 'block';
+            searchContainer.style.display = 'none';
+            searchInput.classList.remove('expanded');
+            searchInput.value = ''; // Clear input when closed
+          }
+        });
+    
+        if (searchIcon) {
+          searchIcon.addEventListener('click', function() {
+            performPageSearch();
+          });
+        }
+    
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            performPageSearch();
+          }
+        });
+    
+        function performPageSearch() {
+          const query = searchInput.value.trim();
+          if (query) {
+            // For pages, we need to process the search in the current page
+            // instead of navigating elsewhere
+            document.getElementById('pdbSearchInput').value = query;
+            
+            // Trigger a search with the query
+            const searchButton = document.getElementById('pdbSearchButton');
+            if (searchButton) {
+              searchButton.click();
+            }
+            
+            // Clear input and hide search
+            searchInput.value = '';
+            searchContainer.style.display = 'none';
+            searchButton.style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('searchResults').scrollIntoView({ behavior: 'smooth' });
+          } else {
+            alert('Please enter a PDB ID to search');
+          }
+        }
+      }
+    </script>
+    <script src="../../js/responsive-nav.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

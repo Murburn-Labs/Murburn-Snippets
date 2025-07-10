@@ -1,0 +1,112 @@
+/* Mobile-friendly styles for the Model Comparison page */
+
+.comparison-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.comparison-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.comparison-subtitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.comparison-table th {
+  background-color: var(--primary-color);
+  color: white;
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.comparison-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.comparison-table tr:nth-child(even) {
+  background-color: var(--bg-secondary);
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.model-section {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.model-section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.model-points {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.model-points li {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+/* Mobile-responsive styles */
+@media (max-width: 768px) {
+  .comparison-container {
+    padding: 1rem;
+  }
+  
+  .comparison-title {
+    font-size: 2rem;
+    margin-top: 60px;
+  }
+  
+  .comparison-subtitle {
+    font-size: 1rem;
+  }
+  
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .model-section {
+    padding: 1.5rem;
+  }
+  
+  .model-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .model-points li {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,217 @@
+/* 
+ * Responsive CSS for Murburn Explorer
+ * Ensures all functionalities work properly across different devices
+ */
+
+/* Base styles for all screen sizes */
+:root {
+    --primary-color: #ff3c7a;
+    --secondary-color: #333;
+    --background-color: #fff;
+    --text-color: #333;
+    --border-color: #ddd;
+    --border-radius: 4px;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+    
+    .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .nav-item {
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .navbar-brand {
+        margin-bottom: 1rem;
+    }
+    
+    /* Collapsible menu for mobile */
+    .navbar-collapse {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease;
+    }
+    
+    .navbar-collapse.show {
+        height: auto;
+    }
+    
+    .navbar-toggler {
+        display: block;
+        margin: 0 auto;
+    }
+    
+    /* Search form on mobile */
+    .search-form {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+    
+    .search-input {
+        width: 100%;
+    }
+}
+
+/* Content responsiveness */
+@media (max-width: 992px) {
+    .container {
+        width: 100%;
+        padding: 0 1rem;
+    }
+    
+    /* Adjust grid layouts */
+    .row {
+        flex-direction: column;
+    }
+    
+    .col, .col-md-4, .col-md-6, .col-md-8, .col-lg-3, .col-lg-4, .col-lg-6, .col-lg-8, .col-lg-9 {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    /* Visualization containers */
+    .plot-container {
+        height: 300px;
+    }
+    
+    /* Adjust cards */
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    /* Classification page */
+    .upload-box {
+        padding: 1rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 576px) {
+    body {
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    /* Make buttons more touch-friendly */
+    button, .btn {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    /* Adjust visualization size */
+    .plot-container {
+        height: 250px;
+    }
+    
+    /* Classification page adjustments */
+    .upload-box {
+        margin: 0.5rem 0;
+    }
+    
+    .result-container {
+        padding: 0.75rem;
+    }
+    
+    /* Search results on mobile */
+    .search-results {
+        max-height: 300px;
+    }
+}
+
+/* Tablet devices */
+@media (min-width: 769px) and (max-width: 992px) {
+    .container {
+        padding: 0 2rem;
+    }
+    
+    /* Two column layout for tablets */
+    .row.tablet-grid {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .row.tablet-grid > div {
+        width: calc(50% - 1rem);
+        margin-right: 1rem;
+    }
+    
+    .row.tablet-grid > div:nth-child(2n) {
+        margin-right: 0;
+    }
+}
+
+/* iPad Pro and larger tablets */
+@media (min-width: 993px) and (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* Ensure touch events work properly */
+@media (hover: none) {
+    /* Make buttons and links more touch-friendly */
+    a, button, .btn, .nav-link {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.5rem 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Increase form element size */
+    input, select, textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 0.5rem;
+    }
+}
+
+/* Fix specific issues with visualization on mobile */
+@media (max-width: 768px) {
+    .plot-controls {
+        flex-direction: column;
+    }
+    
+    .plot-controls button {
+        margin: 0.25rem 0;
+        width: 100%;
+    }
+    
+    /* Ensure plots are scrollable */
+    .plotly-graph-div {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    body.dark-theme {
+        --background-color: #121212;
+        --text-color: #f5f5f5;
+        --border-color: #444;
+        --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+}

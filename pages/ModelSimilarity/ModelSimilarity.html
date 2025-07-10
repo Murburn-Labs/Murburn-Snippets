@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Similarity - Murburn Explorer</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="../../styles/colors.css" />
+    <link rel="stylesheet" href="../../styles/universal.css" />
+    <link rel="stylesheet" href="../../styles/navbar.css" />
+    <link rel="stylesheet" href="../../styles/footer.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../css/responsive.css" />
+    <link rel="stylesheet" href="../../styles/mobile.css" />
+    <link rel="stylesheet" href="mobile-style.css" />
+    <link rel="icon" href="../../images/favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  </head>
+  <body class="light">
+    <header>
+      <nav>
+        <div class="header-container">
+          <a href="../../index.html" class="logo">
+            <img src="../../images/favicon.ico" alt="Amrita Main Logo" id="headerLogo">
+          </a>
+          <div class="toggle-container">
+            <input type="checkbox" id="hide_checkbox">
+            <label for="hide_checkbox" class="toggle">
+              <span class="toggle-button">
+                <span class="crater crater-1"></span>
+                <span class="crater crater-2"></span>
+                <span class="crater crater-3"></span>
+                <span class="crater crater-4"></span>
+                <span class="crater crater-5"></span>
+                <span class="crater crater-6"></span>
+                <span class="crater crater-7"></span>
+              </span>
+              <span class="star star-1"></span>
+              <span class="star star-2"></span>
+              <span class="star star-3"></span>
+              <span class="star star-4"></span>
+              <span class="star star-5"></span>
+              <span class="star star-6"></span>
+              <span class="star star-7"></span>
+              <span class="star star-8"></span>
+            </label>
+          </div>
+          <ul class="nav-links">
+            <li><a href="../../index.html#courses">Lectures</a></li>
+            <li><a href="../../index.html#literature">Literature</a></li>
+            <li><a href="../../pages/plots/plot.html">Plots</a></li>
+            <li><a href="../../pages/Classification/Classification.html">Classification</a></li>
+            <li><a href="../../pages/ModelSimilarity/ModelSimilarity.html">Model Similarity</a></li>
+            <li><a href="../../pages/contact us/contact.html">Contact Us</a></li>
+            <li><a href="../../pages/about us/about.html">About Us</a></li>
+            <li>
+              <button id="searchButton">Search PDB</button>
+              <div class="search-container" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Type PDB ID to search..." maxlength="4">
+                <button id="searchIcon">🔍</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="content">
+      <main>
+        <!-- <div class="page-container">
+          <h1 class="page-title">Model Similarity Analyzer</h1>
+          <div class="model-description">
+            <p>This tool helps researchers compare two biochemical models and determine which one is simpler according to Occam's Razor principle. The analysis also checks for consistency with known experimental and structural data.</p>
+          </div>
+          
+          <div class="models-container">
+            <div class="model-card model-a">
+              <h2>Model A Parameters</h2>
+              <div class="model-section">
+                <h3>Proposal Parameters</h3>
+                <div class="parameter-row">
+                  <label for="A-ShapeChange">Shape Change:</label>
+                  <select id="A-ShapeChange">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-Serial">Serial Process:</label>
+                  <select id="A-Serial">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-Complexity">Complex Process:</label>
+                  <select id="A-Complexity">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-MechanisticSteps">Mechanistic Steps:</label>
+                  <input type="number" id="A-MechanisticSteps" min="0" max="10" value="0">
+                </div>
+                <div class="parameter-row">
+                  <label for="A-Probability">Probability Based:</label>
+                  <select id="A-Probability">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-Intermediates">Requires Intermediates:</label>
+                  <select id="A-Intermediates">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="model-section">
+                <h3>Structural Parameters</h3>
+                <div class="parameter-row">
+                  <label for="A-ActiveSiteAccess">Active Site Access:</label>
+                  <select id="A-ActiveSiteAccess">
+                    <option value="0">Limited (0)</option>
+                    <option value="1">Unlimited (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-SubstrateSize">Substrate Size:</label>
+                  <select id="A-SubstrateSize">
+                    <option value="0">Small (0)</option>
+                    <option value="1">Large (1)</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="model-section">
+                <h3>Experimental Parameters</h3>
+                <div class="parameter-row">
+                  <label for="A-Selectivity">Selectivity:</label>
+                  <select id="A-Selectivity">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-Specificity">Specificity:</label>
+                  <select id="A-Specificity">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-NonIntStoichiometry">Non-Integer Stoichiometry:</label>
+                  <select id="A-NonIntStoichiometry">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-KmKd">Km/Kd:</label>
+                  <select id="A-KmKd">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="A-ZerothOrderKinetics">Zeroth Order Kinetics:</label>
+                  <select id="A-ZerothOrderKinetics">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <div class="model-card model-b">
+              <h2>Model B Parameters</h2>
+              <div class="model-section">
+                <h3>Proposal Parameters</h3>
+                <div class="parameter-row">
+                  <label for="B-ShapeChange">Shape Change:</label>
+                  <select id="B-ShapeChange">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-Serial">Serial Process:</label>
+                  <select id="B-Serial">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-Complexity">Complex Process:</label>
+                  <select id="B-Complexity">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-MechanisticSteps">Mechanistic Steps:</label>
+                  <input type="number" id="B-MechanisticSteps" min="0" max="10" value="0">
+                </div>
+                <div class="parameter-row">
+                  <label for="B-Probability">Probability Based:</label>
+                  <select id="B-Probability">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-Intermediates">Requires Intermediates:</label>
+                  <select id="B-Intermediates">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="model-section">
+                <h3>Structural Parameters</h3>
+                <div class="parameter-row">
+                  <label for="B-ActiveSiteAccess">Active Site Access:</label>
+                  <select id="B-ActiveSiteAccess">
+                    <option value="0">Limited (0)</option>
+                    <option value="1">Unlimited (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-SubstrateSize">Substrate Size:</label>
+                  <select id="B-SubstrateSize">
+                    <option value="0">Small (0)</option>
+                    <option value="1">Large (1)</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="model-section">
+                <h3>Experimental Parameters</h3>
+                <div class="parameter-row">
+                  <label for="B-Selectivity">Selectivity:</label>
+                  <select id="B-Selectivity">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-Specificity">Specificity:</label>
+                  <select id="B-Specificity">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-NonIntStoichiometry">Non-Integer Stoichiometry:</label>
+                  <select id="B-NonIntStoichiometry">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-KmKd">Km/Kd:</label>
+                  <select id="B-KmKd">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+                <div class="parameter-row">
+                  <label for="B-ZerothOrderKinetics">Zeroth Order Kinetics:</label>
+                  <select id="B-ZerothOrderKinetics">
+                    <option value="0">No (0)</option>
+                    <option value="1">Yes (1)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="analysis-controls">
+            <button id="compare-models-btn" class="action-button">Compare Models</button>
+            <button id="reset-models-btn" class="action-button">Reset Parameters</button>
+          </div>
+          
+          <div id="results-container" class="results-container hidden">
+            <h2>Analysis Results</h2>
+            <div class="results-grid">
+              <div class="result-card">
+                <h3>Simplicity Analysis</h3>
+                <p id="simpler-model-result">Waiting for analysis...</p>
+              </div>
+              <div class="result-card">
+                <h3>Model A Consistency</h3>
+                <p id="model-a-score">Waiting for analysis...</p>
+                <div class="consistency-bar-container">
+                  <div id="model-a-bar" class="consistency-bar" style="width: 0%"></div>
+                </div>
+              </div>
+              <div class="result-card">
+                <h3>Model B Consistency</h3>
+                <p id="model-b-score">Waiting for analysis...</p>
+                <div class="consistency-bar-container">
+                  <div id="model-b-bar" class="consistency-bar" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="analysis-summary">
+              <h3>Interpretive Summary</h3>
+              <p id="analysis-summary-text">
+                Enter parameter values for both models and click "Compare Models" to generate an analysis.
+              </p>
+            </div>
+          </div>
+        </div> -->
+      
+        <div class="page-container">
+  <h1 class="page-title">Model Similarity Analyzer</h1>
+  <div class="model-description">
+    <p>This tool helps researchers compare two biochemical models and determine which one is simpler according to Occam's Razor principle. The analysis also checks for consistency with known experimental and structural data.</p>
+  </div>
+  
+  <div class="models-container">
+    <div class="model-card model-a">
+      <h2>Model A Parameters</h2>
+      <div class="model-section">
+        <h3>Proposal Parameters</h3>
+        <div class="parameter-row">
+          <label for="A-ShapeChange">Does the process involve a change in shape or conformation?</label>
+          <select id="A-ShapeChange">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-Serial">Is the process serial?</label>
+          <select id="A-Serial">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-Complexity">Is the process complex?</label>
+          <select id="A-Complexity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-MechanisticSteps">Are there any mechanistic steps involved? If yes, how many?</label>
+          <input type="number" id="A-MechanisticSteps" min="0" max="10" value="0">
+        </div>
+        <div class="parameter-row">
+          <label for="A-Probability">Is the process probability-based (stochastic)?</label>
+          <select id="A-Probability">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-Intermediates">Does the mechanism require intermediates?</label>
+          <select id="A-Intermediates">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-LongDistanceOSET">Does it involve long-distance outer-sphere electron transfer (OSET)?</label>
+          <select id="A-LongDistanceOSET">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-HighAffinityESComplex">Is a high-affinity enzyme-substrate (ES) complex formed?</label>
+          <select id="A-HighAffinityESComplex">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-SubstrateBound">Is the substrate covalently or strongly bound during the process?</label>
+          <select id="A-SubstrateBound">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="model-section">
+        <h3>Structural Parameters</h3>
+        <div class="parameter-row">
+          <label for="A-ActiveSiteAccess">Is access to the active site limited or unlimited?</label>
+          <select id="A-ActiveSiteAccess">
+            <option value="0">Limited (0)</option>
+            <option value="1">Unlimited (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-SubstrateSize">Is the substrate size small or large?</label>
+          <select id="A-SubstrateSize">
+            <option value="0">Small (0)</option>
+            <option value="1">Large (1)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="model-section">
+        <h3>Experimental Parameters</h3>
+        <div class="parameter-row">
+          <label for="A-Selectivity">Does the system show selectivity (preference for certain reactants)?</label>
+          <select id="A-Selectivity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-Specificity">Does the system show specificity (reacts with only one substrate)?</label>
+          <select id="A-Specificity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-Diversity">Does the system allow for diversity in substrates or outcomes?</label>
+          <select id="A-Diversity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-NonIntStoichiometry">Is there non-integer stoichiometry in the reaction?</label>
+          <select id="A-NonIntStoichiometry">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-VariableStoichiometry">Is the stoichiometry variable under different conditions?</label>
+          <select id="A-VariableStoichiometry">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-KmKd">Are values for Michaelis constant (Km) or dissociation constant (Kd) available or relevant?</label>
+          <select id="A-KmKd">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-DiffusionLimits">Are there diffusion limits to the reaction rate?</label>
+          <select id="A-DiffusionLimits">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-ZerothOrderKinetics">Does the reaction follow zeroth-order kinetics (rate independent of concentration)?</label>
+          <select id="A-ZerothOrderKinetics">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="A-CatalyticRate">What is the catalytic rate (k_cat or turnover number in s⁻¹)?</label>
+          <input type="number" id="A-CatalyticRate" min="0" step="0.1" value="0">
+        </div>
+        <div class="parameter-row">
+          <label for="A-IntKIE">What is the intrinsic kinetic isotope effect (KIE), if measured?</label>
+          <select id="A-IntKIE">
+            <option value="LOW">Low</option>
+            <option value="NORMAL">Normal</option>
+            <option value="HIGH">High</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <div class="model-card model-b">
+      <h2>Model B Parameters</h2>
+      <div class="model-section">
+        <h3>Proposal Parameters</h3>
+        <div class="parameter-row">
+          <label for="B-ShapeChange">Does the process involve a change in shape or conformation?</label>
+          <select id="B-ShapeChange">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-Serial">Is the process serial?:</label>
+          <select id="B-Serial">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-Complexity">Is the process complex?</label>
+          <select id="B-Complexity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-MechanisticSteps">Are there any mechanistic steps involved? If yes, how many?</label>
+          <input type="number" id="B-MechanisticSteps" min="0" max="10" value="0">
+        </div>
+        <div class="parameter-row">
+          <label for="B-Probability">Is the process probability-based (stochastic)?</label>
+          <select id="B-Probability">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-Intermediates">Does the mechanism require intermediates?</label>
+          <select id="B-Intermediates">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-LongDistanceOSET">Does it involve long-distance outer-sphere electron transfer (OSET)?</label>
+          <select id="B-LongDistanceOSET">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-HighAffinityESComplex">Is a high-affinity enzyme-substrate (ES) complex formed?</label>
+          <select id="B-HighAffinityESComplex">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-SubstrateBound">Is the substrate covalently or strongly bound during the process?</label>
+          <select id="B-SubstrateBound">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="model-section">
+        <h3>Structural Parameters</h3>
+        <div class="parameter-row">
+          <label for="B-ActiveSiteAccess">Is access to the active site limited or unlimited?</label>
+          <select id="B-ActiveSiteAccess">
+            <option value="0">Limited (0)</option>
+            <option value="1">Unlimited (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-SubstrateSize">Is the substrate size small or large?</label>
+          <select id="B-SubstrateSize">
+            <option value="0">Small (0)</option>
+            <option value="1">Large (1)</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="model-section">
+        <h3>Experimental Parameters</h3>
+        <div class="parameter-row">
+          <label for="B-Selectivity">Does the system show selectivity (preference for certain reactants)?</label>
+          <select id="B-Selectivity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-Specificity">Does the system show specificity (reacts with only one substrate)?</label>
+          <select id="B-Specificity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-Diversity">Does the system allow for diversity in substrates or outcomes?</label>
+          <select id="B-Diversity">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-NonIntStoichiometry">Is there non-integer stoichiometry in the reaction?</label>
+          <select id="B-NonIntStoichiometry">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-VariableStoichiometry">Is the stoichiometry variable under different conditions?</label>
+          <select id="B-VariableStoichiometry">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-KmKd">Are values for Michaelis constant (Km) or dissociation constant (Kd) available or relevant?</label>
+          <select id="B-KmKd">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-DiffusionLimits">Are there diffusion limits to the reaction rate?</label>
+          <select id="B-DiffusionLimits">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-ZerothOrderKinetics">Does the reaction follow zeroth-order kinetics (rate independent of concentration)?</label>
+          <select id="B-ZerothOrderKinetics">
+            <option value="0">No (0)</option>
+            <option value="1">Yes (1)</option>
+          </select>
+        </div>
+        <div class="parameter-row">
+          <label for="B-CatalyticRate">What is the catalytic rate (k_cat or turnover number in s⁻¹)?</label>
+          <input type="number" id="B-CatalyticRate" min="0" step="0.1" value="0">
+        </div>
+        <div class="parameter-row">
+          <label for="B-IntKIE">What is the intrinsic kinetic isotope effect (KIE), if measured?</label>
+          <select id="B-IntKIE">
+            <option value="LOW">Low</option>
+            <option value="NORMAL">Normal</option>
+            <option value="HIGH">High</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="analysis-controls">
+    <button id="compare-models-btn" class="action-button">Compare Models</button>
+    <button id="reset-models-btn" class="action-button">Reset Parameters</button>
+  </div>
+  
+  <div id="results-container" class="results-container hidden">
+    <h2>Analysis Results</h2>
+    <div class="results-grid">
+      <div class="result-card">
+        <h3>Simplicity Analysis</h3>
+        <p id="simpler-model-result">Waiting for analysis...</p>
+      </div>
+      <div class="result-card">
+        <h3>Model A Consistency</h3>
+        <p id="model-a-score">Waiting for analysis...</p>
+        <div class="consistency-bar-container">
+          <div id="model-a-bar" class="consistency-bar" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <h3>Model B Consistency</h3>
+        <p id="model-b-score">Waiting for analysis...</p>
+        <div class="consistency-bar-container">
+          <div id="model-b-bar" class="consistency-bar" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="analysis-summary">
+      <h3>Interpretive Summary</h3>
+      <p id="analysis-summary-text">
+        Enter parameter values for both models and click "Compare Models" to generate an analysis.
+      </p>
+    </div>
+  </div>
+</div>
+      
+      
+      </main>
+
+      <footer>
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img id="footerLogo" src="../../images/logo.webp" alt="Murburn Logo" />
+            <p>Murburn Concept<br>Advanced Biochemical Research</p>
+          </div>
+          <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../../index.html#courses">Lectures</a></li>
+              <li><a href="../../index.html#literature">Literature</a></li>
+              <li><a href="../plots/plot.html">Plots</a></li>
+              <li><a href="../Classification/Classification.html">Classification</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p>Email: murburn.concept@gmail.com</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#" id="gitlogo-link"><img id="gitlogo" src="../../images/github-light.webp" alt="GitHub" style="width: 24px; height: 24px;"></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Murburn Concept. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="../../js/responsive-nav.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

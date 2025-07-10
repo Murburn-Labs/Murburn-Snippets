@@ -1,0 +1,91 @@
+/* Footer Styles */
+footer {
+  background-color: var(--dark-primary);
+  color: var(--primary-bg);
+  padding: 4rem 4rem 2rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.footer-logo {
+  margin-bottom: 2rem;
+}
+
+.footer-logo img {
+  height: 5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-logo p {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.footer-links h3, .footer-contact h3 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 1rem;
+}
+
+.footer-links a {
+  color: var(--primary-bg);
+  font-size: 1.4rem;
+}
+
+.footer-links a:hover {
+  color: var(--blog);
+}
+
+.footer-contact p {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-icons a {
+  font-size: 2rem;
+  color: var(--primary-bg);
+}
+
+.social-icons a:hover {
+  color: var(--blog);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  footer {
+    padding: 3rem 2rem 1.5rem;
+  }
+}
